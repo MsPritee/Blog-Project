@@ -12,7 +12,7 @@ const PostForm = ({ onSubmit }) => {
       newErrors.title = "Title is required.";
     }
     if (!author) {
-      newErrors.title = "Author is required.";
+      newErrors.author = "Author is required.";
     }
     if (!content) {
       newErrors.content = "Content is required.";
@@ -70,12 +70,12 @@ const PostForm = ({ onSubmit }) => {
           </label>
           <input
             className={`w-full border border-gray-300 rounded px-2 py-1 ${
-              errors.title ? "border-red-500" : ""
+              errors.author ? "border-red-500" : ""
             }`}
             type="text"
             name="author"
             value={author}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setAuthor(e.target.value)}
           />
           {errors.author && (
             <p className="text-red-500 text-xs mt-1">{errors.author}</p>
