@@ -46,12 +46,12 @@ router.post("/add", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
 
-  const { title, content, ...otherUpdates } = req.body;
+  const { title, author, content, ...otherUpdates } = req.body;
 
   try {
     const post = await Post.findByIdAndUpdate(
       id,
-      { title, content, ...otherUpdates },
+      { title, author, content, ...otherUpdates },
       { new: true }
     );
 
@@ -67,5 +67,25 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Error updating post" });
   }
 });
+
+
+// DELETE Delete a specific post by ID
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedPost = await Post.findByIdAndDelete(id);
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    res.json({ message: "Post deleted successfully", deletedPost });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ error: "Error deleting post" });
+  }
+});
+
 
 module.exports = router;
